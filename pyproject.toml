@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "cutils"
+version = "0.1.0"
+description = "cli app for common tasks"
+authors = ["Prasanjit Prakash <prasanjit@gmail.com>"]
+keywords = [
+    "Personal",
+    "CLI",
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+attrs = "^21.4.0"
+click = "^8.0.3"
+loguru = "^0.6.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+ipython = "^8.0.1"
+ipdb = "^0.13.9"
+
+[tool.poetry.scripts]
+cutils = "cutils.main:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+exclude = [
+    "**/__pycache__",
+    ".git/",
+]
+reportMissingImports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+markers = [
+  "regression: mark a test as regression.",
+  "sanity: mark a test as sanity.",
+  "critical: mark a test as critical.",
+  "slow: mark a test as slow.",
+  "integration: mark a test as an integration test."
+]
+addopts =[
+    # Shows a line for every test
+    # You probably want to turn this off if you use pytest-sugar.
+    # Or you can keep it and run `py.test -q`.
+    # --verbose
+
+    # Shorter tracebacks are sometimes easier to read
+    '--tb=short',
+
+    # Turn on --capture to have brief, less noisy output.
+    # You will only see output if the test fails.
+    # Use --capture no (same as -s) if you want to see it all or have problems
+    # debugging.
+    # --capture=fd
+    # --capture=no
+
+    # Show extra test summary info as specified by chars (f)ailed, (E)error, (s)skipped, (x)failed, (X)passed.
+    '-rfEsxX',
+
+    # Output test results to junit.xml for Jenkins to consume
+    # --junitxml=junit.xml
+
+    # Measure code coverage
+    # --cov=mrjob
+    # --cov-report=xml
+    # --cov-report=term-missing
+    # skip integration tests by default
+    '-m not integration',
+]
